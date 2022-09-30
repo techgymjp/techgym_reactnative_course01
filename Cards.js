@@ -313,4 +313,18 @@ const Cards = [
   },
 ];
 
+function sortAtRandom(cards) {
+  const cardsLength = cards.length;
+  const randomCards = [];
+  for (let i = 0; i < cardsLength; i++) {
+    let randomTarget = Math.floor(Math.random() * cards.length);
+    randomCards[i] = cards[randomTarget];
+    cards.splice(randomTarget, 1);
+  }
+  return randomCards;
+}
+
+const randomCards = sortAtRandom(Cards);
+console.log(randomCards);
+
 export const cards = Cards;

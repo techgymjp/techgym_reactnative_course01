@@ -325,6 +325,21 @@ function sortAtRandom(cards) {
 }
 
 const randomCards = sortAtRandom(Cards);
-console.log(randomCards);
+
+function createPyramid(cards) {
+  const pyramid = [];
+  for (let i = 0; i < 7; i++) {
+    let thislayer = [];
+    for (let j = 0; j < i + 1; j++) {
+      thislayer[j] = cards[0];
+      cards.splice(0, 1);
+    }
+    pyramid[i] = thislayer;
+  }
+  return pyramid;
+}
+
+const pyramid = createPyramid(randomCards);
+console.log(pyramid);
 
 export const cards = Cards;

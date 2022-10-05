@@ -340,8 +340,7 @@ function createPyramid(cards) {
   deckList.push({ image: require("./assets/card_back.png") });
   const trashList = cards.concat();
   trashList.unshift({ image: require("./assets/card_back.png") });
-  console.log(deckList, trashList);
   return [pyramid, deckList, trashList];
 }
 
-export const [pyramidList, deckList, trashList] = createPyramid(randomCards);
+export const [pyramid, deckList, trashList] = createPyramid(randomCards);

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import { pyramid, deckList, trashList } from "./Cards.js";
 
 export default function App() {
+  const [count, setCount] = useState(0);
+
   return (
     <View style={styles.container}>
       {pyramid.map((value, i) => {
@@ -27,9 +29,11 @@ export default function App() {
       })}
       <View style={styles.deck_container}>
         <TouchableOpacity>
-          <Image style={styles.borderStyle} source={deckList[0]["image"]} />
+          <Image style={styles.borderStyle} source={deckList[count]["image"]} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setCount((prevCount) => prevCount + 1)}
+        >
           <Image
             style={styles.borderStyle}
             source={require("./assets/card_back.png")}
@@ -38,7 +42,10 @@ export default function App() {
       </View>
       <View style={styles.trash_container}>
         <TouchableOpacity>
-          <Image style={styles.borderStyle} source={trashList[0]["image"]} />
+          <Image
+            style={styles.borderStyle}
+            source={trashList[count]["image"]}
+          />
         </TouchableOpacity>
       </View>
     </View>

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
-import { pyramid } from "./Cards.js";
+import { pyramid, deckList, trashList } from "./Cards.js";
 
 export default function App() {
   return (
@@ -25,6 +25,22 @@ export default function App() {
           </View>
         );
       })}
+      <View style={styles.deck_container}>
+        <TouchableOpacity>
+          <Image style={styles.borderStyle} source={deckList[0]["image"]} />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            style={styles.borderStyle}
+            source={require("./assets/card_back.png")}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.trash_container}>
+        <TouchableOpacity>
+          <Image style={styles.borderStyle} source={trashList[0]["image"]} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -37,7 +53,15 @@ const styles = StyleSheet.create({
   },
   button_container: {
     flexDirection: "row",
-    top: 0,
+  },
+  deck_container: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+  },
+  trash_container: {
+    flexDirection: "row",
+    top: -70,
+    alignSelf: "flex-start",
   },
   borderStyle: {
     width: 50,

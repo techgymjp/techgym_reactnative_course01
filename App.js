@@ -32,7 +32,9 @@ export default function App() {
           <Image style={styles.borderStyle} source={deckList[count]["image"]} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setCount((prevCount) => prevCount + 1)}
+          onPress={() =>
+            setCount((prevCount) => (prevCount + 1) % deckList.length)
+          }
         >
           <Image
             style={styles.borderStyle}

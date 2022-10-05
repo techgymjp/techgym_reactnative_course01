@@ -336,10 +336,12 @@ function createPyramid(cards) {
     }
     pyramid[i] = thislayer;
   }
-  return pyramid;
+  const deckList = cards.concat();
+  deckList.push({ image: require("./assets/card_back.png") });
+  const trashList = cards.concat();
+  trashList.unshift({ image: require("./assets/card_back.png") });
+  console.log(deckList, trashList);
+  return [pyramid, deckList, trashList];
 }
 
-const pyramid = createPyramid(randomCards);
-console.log(pyramid);
-
-export const cards = Cards;
+export const [pyramidList, deckList, trashList] = createPyramid(randomCards);

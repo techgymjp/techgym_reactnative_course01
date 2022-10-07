@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import { pyramid, deckList, trashList } from "./Cards.js";
 
+import Trump from "./components/Trump";
+
 export default function App() {
   const [count, setCount] = useState(0);
 
@@ -14,15 +16,7 @@ export default function App() {
             style={{ top: i * -35 + 35, flexDirection: "row" }}
           >
             {value.map((_, j) => {
-              return (
-                <TouchableOpacity>
-                  <Image
-                    style={styles.borderStyle}
-                    source={pyramid[i][j]["image"]}
-                    key={i + "-" + j}
-                  />
-                </TouchableOpacity>
-              );
+              return <Trump key={`${i}${j}`} step={i} number={j} />;
             })}
           </View>
         );

@@ -16,33 +16,24 @@ export default function App() {
             style={{ top: i * -35 + 35, flexDirection: "row" }}
           >
             {value.map((_, j) => {
-              return <Trump key={`${i}${j}`} step={i} number={j} />;
+              return (
+                <Trump type={"pyramid"} key={`${i}${j}`} step={i} number={j} />
+              );
             })}
           </View>
         );
       })}
       <View style={styles.deck_container}>
-        <TouchableOpacity>
-          <Image style={styles.borderStyle} source={deckList[count]["image"]} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
+        <Trump type={"deck"} source={deckList[count]["image"]} />
+        <Trump
+          type={"flipButton"}
+          countUp={() =>
             setCount((prevCount) => (prevCount + 1) % deckList.length)
           }
-        >
-          <Image
-            style={styles.borderStyle}
-            source={require("./assets/card_back.png")}
-          />
-        </TouchableOpacity>
+        />
       </View>
       <View style={styles.trash_container}>
-        <TouchableOpacity>
-          <Image
-            style={styles.borderStyle}
-            source={trashList[count]["image"]}
-          />
-        </TouchableOpacity>
+        <Trump type={"trash"} source={trashList[count]["image"]} />
       </View>
     </View>
   );

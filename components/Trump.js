@@ -3,8 +3,8 @@ import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import { pyramid } from "../Cards.js";
 
 export default function Trump(props) {
+  let borderStyle = { width: 50, height: 70 };
   if (props.type === "pyramid") {
-    let borderStyle = { width: 50, height: 70 };
     const thisposition = String(props.step) + String(props.number);
     if (thisposition === props.nowPosition) {
       borderStyle.borderColor = "deepskyblue";
@@ -20,9 +20,13 @@ export default function Trump(props) {
       </TouchableOpacity>
     );
   } else if (props.type === "deck") {
+    if (props.type === props.nowPosition) {
+      borderStyle.borderColor = "deepskyblue";
+      borderStyle.borderWidth = 2;
+    }
     return (
-      <TouchableOpacity>
-        <Image style={styles.borderStyle} source={props.source} />
+      <TouchableOpacity onPress={props.onPress}>
+        <Image style={borderStyle} source={props.source} />
       </TouchableOpacity>
     );
   } else if (props.type === "flipButton") {
@@ -35,9 +39,13 @@ export default function Trump(props) {
       </TouchableOpacity>
     );
   } else {
+    if (props.type === props.nowPosition) {
+      borderStyle.borderColor = "deepskyblue";
+      borderStyle.borderWidth = 2;
+    }
     return (
-      <TouchableOpacity>
-        <Image style={styles.borderStyle} source={props.source} />
+      <TouchableOpacity onPress={props.onPress}>
+        <Image style={borderStyle} source={props.source} />
       </TouchableOpacity>
     );
   }

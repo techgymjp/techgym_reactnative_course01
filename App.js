@@ -32,7 +32,12 @@ export default function App() {
         );
       })}
       <View style={styles.deck_container}>
-        <Trump type={"deck"} source={deckList[count]["image"]} />
+        <Trump
+          type={"deck"}
+          source={deckList[count]["image"]}
+          onPress={() => setPosition("deck")}
+          nowPosition={position}
+        />
         <Trump
           type={"flipButton"}
           countUp={() =>
@@ -41,7 +46,12 @@ export default function App() {
         />
       </View>
       <View style={styles.trash_container}>
-        <Trump type={"trash"} source={trashList[count]["image"]} />
+        <Trump
+          type={"trash"}
+          source={trashList[count]["image"]}
+          onPress={() => setPosition("trash")}
+          nowPosition={position}
+        />
       </View>
     </View>
   );

@@ -6,6 +6,8 @@ import Trump from "./components/Trump";
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [position, setPosition] = useState(null);
+  console.log(position);
 
   return (
     <View style={styles.container}>
@@ -17,7 +19,14 @@ export default function App() {
           >
             {value.map((_, j) => {
               return (
-                <Trump type={"pyramid"} key={`${i}${j}`} step={i} number={j} />
+                <Trump
+                  type={"pyramid"}
+                  key={`${i}${j}`}
+                  step={i}
+                  number={j}
+                  onPress={() => setPosition(`${i}${j}`)}
+                  nowPosition={position}
+                />
               );
             })}
           </View>

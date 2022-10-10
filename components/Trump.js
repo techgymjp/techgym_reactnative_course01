@@ -4,10 +4,16 @@ import { pyramid } from "../Cards.js";
 
 export default function Trump(props) {
   if (props.type === "pyramid") {
+    let borderStyle = { width: 50, height: 70 };
+    const thisposition = String(props.step) + String(props.number);
+    if (thisposition === props.nowPosition) {
+      borderStyle.borderColor = "deepskyblue";
+      borderStyle.borderWidth = 2;
+    }
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={props.onPress}>
         <Image
-          style={styles.borderStyle}
+          style={borderStyle}
           source={pyramid[props.step][props.number]["image"]}
           key={props.level + "-" + props.number}
         />

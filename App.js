@@ -7,6 +7,14 @@ import Trump from "./components/Trump";
 export default function App() {
   const [count, setCount] = useState(0);
   const [position, setPosition] = useState(null);
+  const countUpAndReset = () => {
+    setCount((prevCount) => (prevCount + 1) % deckList.length);
+    if (position === "deck") {
+      setPosition("trash");
+    } else if (position === "trash") {
+      setPosition(null);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -38,12 +46,7 @@ export default function App() {
           onPress={() => setPosition("deck")}
           nowPosition={position}
         />
-        <Trump
-          type={"flipButton"}
-          countUp={() =>
-            setCount((prevCount) => (prevCount + 1) % deckList.length)
-          }
-        />
+        <Trump type={"flipButton"} countUp={countUpAndReset} />
       </View>
       <View style={styles.trash_container}>
         <Trump

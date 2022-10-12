@@ -16,6 +16,17 @@ export default function App() {
     }
   };
 
+  function pyramidClicked(index) {
+    let splitarray = index.split("").map(Number);
+    let clickednumber = pyramid[splitarray[0]][splitarray[1]]["number"];
+    if (clickednumber === 13) {
+      pyramid[splitarray[0]][splitarray[1]] = {
+        isdeleted: true,
+      };
+    }
+    setPosition(index);
+  }
+
   return (
     <View style={styles.container}>
       {pyramid.map((value, i) => {
@@ -23,6 +34,7 @@ export default function App() {
           <View
             key={`${i}`}
             style={{ top: i * -35 + 35, flexDirection: "row" }}
+            pointerEvents="box-none"
           >
             {value.map((_, j) => {
               return (
@@ -31,7 +43,7 @@ export default function App() {
                   key={`${i}${j}`}
                   step={i}
                   number={j}
-                  onPress={() => setPosition(`${i}${j}`)}
+                  onPress={() => pyramidClicked(`${i}${j}`)}
                   nowPosition={position}
                 />
               );

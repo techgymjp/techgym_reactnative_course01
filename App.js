@@ -6,15 +6,26 @@ import Trump from "./components/Trump";
 
 export default function App() {
   const [count, setCount] = useState(0);
-  const [position, setPosition] = useState(null);
+  const [isClicked, setIsclicked] = useState({
+    position: null,
+    number: 0,
+  });
   const countUpAndReset = () => {
     setCount((prevCount) => (prevCount + 1) % deckList.length);
-    if (position === "deck") {
-      setPosition("trash");
-    } else if (position === "trash") {
-      setPosition(null);
+    if (isClicked.position === "deck") {
+      setIsclicked((state) => ({
+        ...state,
+        position: "trash",
+      }));
+    } else if (isClicked.position === "trash") {
+      setIsclicked({
+        position: null,
+        number: 0,
+      });
     }
   };
+
+  console.log(isClicked);
 
   function pyramidClicked(index) {
     let splitarray = index.split("").map(Number);
@@ -24,7 +35,10 @@ export default function App() {
         isdeleted: true,
       };
     }
-    setPosition(index);
+    setIsclicked({
+      position: index,
+      number: clickednumber,
+    });
   }
 
   return (
@@ -44,7 +58,7 @@ export default function App() {
                   step={i}
                   number={j}
                   onPress={() => pyramidClicked(`${i}${j}`)}
-                  nowPosition={position}
+                  nowPosition={isClicked.position}
                 />
               );
             })}
@@ -55,8 +69,13 @@ export default function App() {
         <Trump
           type={"deck"}
           source={deckList[count]["image"]}
-          onPress={() => setPosition("deck")}
-          nowPosition={position}
+          onPress={() =>
+            setIsclicked({
+              position: "deck",
+              number: deckList[count]["number"],
+            })
+          }
+          nowPosition={isClicked.position}
         />
         <Trump type={"flipButton"} countUp={countUpAndReset} />
       </View>
@@ -64,8 +83,13 @@ export default function App() {
         <Trump
           type={"trash"}
           source={trashList[count]["image"]}
-          onPress={() => setPosition("trash")}
-          nowPosition={position}
+          onPress={() =>
+            setIsclicked({
+              position: "trash",
+              number: trashList[count]["number"],
+            })
+          }
+          nowPosition={isClicked.position}
         />
       </View>
     </View>

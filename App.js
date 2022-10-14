@@ -7,7 +7,6 @@ import Trump from "./components/Trump";
 export default function App() {
   const [count, setCount] = useState(0);
   const [position, setPosition] = useState(null);
-  console.log(position);
 
   return (
     <View style={styles.container}>

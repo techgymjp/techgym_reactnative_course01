@@ -25,19 +25,30 @@ export default function App() {
     }
   };
 
-  console.log(isClicked);
-
   function pyramidClicked(index) {
     let splitarray = index.split("").map(Number);
     let clickednumber = pyramid[splitarray[0]][splitarray[1]]["number"];
+    let nextPosition = null;
+    let nextNumber = 0;
     if (clickednumber === 13) {
       pyramid[splitarray[0]][splitarray[1]] = {
         isdeleted: true,
       };
+    } else if (clickednumber + isClicked.number === 13) {
+      pyramid[splitarray[0]][splitarray[1]] = {
+        isdeleted: true,
+      };
+      let splitposition = isClicked.position.split("");
+      pyramid[splitposition[0]][splitposition[1]] = {
+        isdeleted: true,
+      };
+    } else {
+      nextPosition = index;
+      nextNumber = clickednumber;
     }
     setIsclicked({
-      position: index,
-      number: clickednumber,
+      position: nextPosition,
+      number: nextNumber,
     });
   }
 

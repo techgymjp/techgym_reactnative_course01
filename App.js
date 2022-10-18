@@ -38,10 +38,19 @@ export default function App() {
       pyramid[splitarray[0]][splitarray[1]] = {
         isdeleted: true,
       };
-      let splitposition = isClicked.position.split("");
-      pyramid[splitposition[0]][splitposition[1]] = {
-        isdeleted: true,
-      };
+      if (isClicked.position === "deck") {
+        deckList.splice(count, 1);
+        trashList.splice(count + 1, 1);
+      } else if (isClicked.position === "trash") {
+        deckList.splice(count - 1, 1);
+        trashList.splice(count, 1);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        let splitposition = isClicked.position.split("");
+        pyramid[splitposition[0]][splitposition[1]] = {
+          isdeleted: true,
+        };
+      }
     } else {
       nextPosition = index;
       nextNumber = clickednumber;

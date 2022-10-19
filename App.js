@@ -61,6 +61,62 @@ export default function App() {
     });
   }
 
+  function deckAndTrashClicked(index) {
+    let splitposition =
+      isNaN(isClicked.position) || isClicked.position == null
+        ? null
+        : isClicked.position.split("").map(Number);
+    let nextPosition = null;
+    let nextNumber = 0;
+    if (index === "deck") {
+      if (deckList[count]["number"] === 13) {
+        deckList.splice(count, 1);
+        trashList.splice(count + 1, 1);
+      } else if (deckList[count]["number"] + isClicked.number === 13) {
+        deckList.splice(count, 1);
+        trashList.splice(count + 1, 1);
+        if (isClicked.position === "trash") {
+          deckList.splice(count - 1, 1);
+          trashList.splice(count, 1);
+          setCount((prevCount) => prevCount - 1);
+        } else {
+          pyramid[splitposition[0]][splitposition[1]] = {
+            isdeleted: true,
+          };
+        }
+      } else {
+        nextPosition = index;
+        nextNumber = deckList[count]["number"];
+      }
+    } else {
+      if (trashList[count]["number"] === 13) {
+        deckList.splice(count - 1, 1);
+        trashList.splice(count, 1);
+        setCount((prevCount) => prevCount - 1);
+      } else if (trashList[count]["number"] + isClicked.number === 13) {
+        if (isClicked.position === "deck") {
+          deckList.splice(count - 1, 2);
+          trashList.splice(count, 2);
+          setCount((prevCount) => prevCount - 1);
+        } else {
+          deckList.splice(count - 1, 1);
+          trashList.splice(count, 1);
+          pyramid[splitposition[0]][splitposition[1]] = {
+            isdeleted: true,
+          };
+          setCount((prevCount) => prevCount - 1);
+        }
+      } else {
+        nextPosition = index;
+        nextNumber = trashList[count]["number"];
+      }
+    }
+    setIsclicked({
+      position: nextPosition,
+      number: nextNumber,
+    });
+  }
+
   return (
     <View style={styles.container}>
       {pyramid.map((value, i) => {
@@ -89,12 +145,7 @@ export default function App() {
         <Trump
           type={"deck"}
           source={deckList[count]["image"]}
-          onPress={() =>
-            setIsclicked({
-              position: "deck",
-              number: deckList[count]["number"],
-            })
-          }
+          onPress={() => deckAndTrashClicked("deck")}
           nowPosition={isClicked.position}
         />
         <Trump type={"flipButton"} countUp={countUpAndReset} />
@@ -103,12 +154,7 @@ export default function App() {
         <Trump
           type={"trash"}
           source={trashList[count]["image"]}
-          onPress={() =>
-            setIsclicked({
-              position: "trash",
-              number: trashList[count]["number"],
-            })
-          }
+          onPress={() => deckAndTrashClicked("trash")}
           nowPosition={isClicked.position}
         />
       </View>

@@ -25,11 +25,27 @@ export default function App() {
     }
   };
 
+  function isclickable(level, number) {
+    if (level === 6) {
+      return true;
+    } else {
+      let leftNumber = number;
+      let rightNumber = number + 1;
+      return (
+        pyramid[level + 1][leftNumber]["isdeleted"] &&
+        pyramid[level + 1][rightNumber]["isdeleted"]
+      );
+    }
+  }
+
   function pyramidClicked(index) {
     let splitarray = index.split("").map(Number);
     let clickednumber = pyramid[splitarray[0]][splitarray[1]]["number"];
     let nextPosition = null;
     let nextNumber = 0;
+    if (!isclickable(splitarray[0], splitarray[1])) {
+      return;
+    }
     if (clickednumber === 13) {
       pyramid[splitarray[0]][splitarray[1]] = {
         isdeleted: true,

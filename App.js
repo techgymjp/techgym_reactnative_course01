@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { pyramid, deckList, trashList } from "./Cards.js";
 
 import Trump from "./components/Trump";
@@ -9,6 +9,7 @@ export default function App() {
   const [isClicked, setIsclicked] = useState({
     position: null,
     number: 0,
+    text: "",
   });
   const countUpAndReset = () => {
     setCount((prevCount) => (prevCount + 1) % deckList.length);
@@ -18,10 +19,11 @@ export default function App() {
         position: "trash",
       }));
     } else if (isClicked.position === "trash") {
-      setIsclicked({
+      setIsclicked((state) => ({
+        ...state,
         position: null,
         number: 0,
-      });
+      }));
     }
   };
 
@@ -71,10 +73,18 @@ export default function App() {
       nextPosition = index;
       nextNumber = clickednumber;
     }
-    setIsclicked({
-      position: nextPosition,
-      number: nextNumber,
-    });
+    if (pyramid[0][0]["isdeleted"]) {
+      setIsclicked((state) => ({
+        ...state,
+        text: "you win",
+      }));
+    } else {
+      setIsclicked((state) => ({
+        ...state,
+        position: nextPosition,
+        number: nextNumber,
+      }));
+    }
   }
 
   function deckAndTrashClicked(index) {
@@ -127,10 +137,18 @@ export default function App() {
         nextNumber = trashList[count]["number"];
       }
     }
-    setIsclicked({
-      position: nextPosition,
-      number: nextNumber,
-    });
+    if (pyramid[0][0]["isdeleted"]) {
+      setIsclicked((state) => ({
+        ...state,
+        text: "you win",
+      }));
+    } else {
+      setIsclicked((state) => ({
+        ...state,
+        position: nextPosition,
+        number: nextNumber,
+      }));
+    }
   }
 
   return (
@@ -173,6 +191,9 @@ export default function App() {
           onPress={() => deckAndTrashClicked("trash")}
           nowPosition={isClicked.position}
         />
+      </View>
+      <View>
+        <Text>{isClicked.text}</Text>
       </View>
     </View>
   );

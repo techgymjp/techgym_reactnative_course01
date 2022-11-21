@@ -1,78 +1,132 @@
 <環境構築>
-環境設定としては
-%マークはすでに入力されているため％より後ろを入力してください
+%マークはすでに入力されているため％より後ろを入力しましょう
 
-homebrewをインストール
-```
-% /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-
-PATHを通す
-```
-% echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/ユーザー名/.zprofile 
-% eval "$(/opt/homebrew/bin/brew shellenv)"
-```
-ユーザー名の部分は、各々のmacで確認してください
-
-
-homebrewのバージョンの確認
+【前提】
+Homebrewがインストールされていること
 ```
 % brew -v
 ```
-バージョンの表示がされていたら、homebrewをインストールできています
+※ Homebrewのバージョンが表示されていることを確認
 
-nodebrewのインストール
-```
-% brew install nodebrew
-```
 
-nodebrewのバージョンの確認
-```
-% nodebrew -v
-```
-バージョンの表示がされていたら、nodebrewをインストールできています
-
-Node.jsのインストール
-```
-% nodebrew install-binary stable
-```
-※Warning: Failed to create the file とエラーが出てしまう場合は、mkdir -p ~/.nodebrew/srcを実行してからインストールしてください
-
-有効になっているかの確認
-```
-% nodebrew ls
-```
-※current: noneとなっている場合は、nodebrew use [version]でバージョン情報を追加してください
-
-PATHの設定
-```
-% echo 'export PATH=$HOME/.nodebrew/current/bin:$PATH' >> ~/.zprofile
-```
-【重要】このタイミングで一度ターミナルを再起動させてください
-
-Node.jsのバージョンの確認
+Node.jsがインストールされていること
 ```
 % node -v
 ```
+※ Nodeのバージョンが表示されていることを確認
 
+
+npmがインストールされていること
+```
+% npm -v
+```
+※ npmのバージョンが表示されていることを確認
+
+
+※ インストール方法が分からない方は、「Homebrew インストール」のように検索しましょう
+
+
+【手順】
 watchmanのインストール
 ```
 % brew install watchman
 ```
 
+
 watchmanのバージョンの確認
 ```
-% watchman -version
+% watchman --version
 ```
 
+
 Xcodeのインストール
-　　App StoreからXcodeをインストールしてください
-　　ツールバーのからXcodeからPreferencesを選択
-　　Locationタブで最新のCommand Line Toolsを選択
-  
-EXPOのインストール
+
+App StoreからXcodeをインストールしましょう
+
+ツールバーのからXcodeからPreferencesを選択
+
+Locationタブで最新のCommand Line Toolsを選択
+
+
+※ 本章で、Xcodeは「Command Line Tools」しか利用しないため、選択後Xcodeは閉じましょう
+
+※ アンドロイドでの動作を確認したい場合は、Android Studioをインストールしましょう
+
+
+Expoのインストール
 ```
 % npm install -g expo-cli
 ```
+
+
+作業用ディレクトリに移動する
+
+※ ディレクトリに指定はありません
+
+　 ディレクトリの移動方法が分からないかたは「Linux コマンド ディレクトリ」で検索しましょう
+
+
+プログラムをローカルPCにダウンロードする
+```
+% git clone https://github.com/techgymjp/techgym_reactnative_course01
+```
+
+
+アプリケーションのルートディレクトリに移動する
+```
+% cd techgym_reactnative_course01
+```
+
+
+カレントディレクトリを確認する
+```
+% pwd
+/Users/{ユーザー名}/{...}/techgym_reactnative_course01
+```
+{...} はプログラムをダウンロードした場所によって変わります
+
+
+※ 以降はこのアプリケーションのルートディレクトリで学習を進めていきます
+
+カレントディレクトリが異なる場所だと正常に動作しないため、移動してしまった方は再度アプリケーションのルートディレクトリに移動しましょう
+
+
+利用パッケージをインストールする
+```
+% npm install
+```
+
+
+アプリケーションを起動する
+```
+% npm start
+
+~~~ 省略 ~~~
+
+Metro waiting on exp://192.168.0.25:19000
+› Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
+
+› Press a │ open Android
+› Press i │ open iOS simulator
+› Press w │ open web
+
+› Press r │ reload app
+› Press m │ toggle menu
+
+› Press ? │ show all commands
+
+```
+
+キーボードで「i」を押すとシミュレータ・Expoが起動します
+
+※ アプリケーションを起動中、プログラムを書き換えると自動でシミュレータが更新されます
+
+※ シミュレータが自動で起動しない方は、コマンドラインからシミュレータを起動しましょう
+
+
+```
+% open -a Simulator
+```
+
+
 以上でreact nativeの環境構築終了です
